@@ -36,7 +36,7 @@ export function DropDown({ children, dropDownName } : DropDownProps) {
                     </Animated.View>
                 </ThemedView>
             </TouchableOpacity>
-            <ThemedView style={{display: `${open ? 'flex' : 'none'}`, flexDirection: 'column', alignItems: 'center'}}>
+            <ThemedView style={{display: `${open ? 'flex' : 'none'}`, flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
                 {children}
             </ThemedView>
         </ThemedView>

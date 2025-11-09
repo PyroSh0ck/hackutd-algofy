@@ -31,13 +31,34 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#151718',
+          },
+          headerTintColor: '#abebe3',
+          headerTitleStyle: {
+            fontFamily: 'Poppins_600SemiBold',
+            fontSize: 20,
+            color: '#abebe3',
+          },
+          headerShadowVisible: false,
+          headerBackTitle: 'Back',
+        }}
+      >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(signup)" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        <Stack.Screen name="(modals)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(stack)"
+          options={{
+            title: 'Investments',
+            headerShown: true,
+          }}
+        />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </ThemeProvider>
   );
 }
