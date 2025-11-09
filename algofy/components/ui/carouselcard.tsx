@@ -14,6 +14,7 @@ export function CarouselCard() {
     return (
         <ThemedView>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
            {/* Gradient */}  <LinearGradient
                 colors={['#11b3a1', '#0e9c8f']}
                 style={{height: '100%', width: '100%', borderRadius: 20, borderColor: 'rgba(24, 55, 68, 0.2)', borderWidth: 3, position:'relative', display:'flex', flexDirection:'column'}}
@@ -44,6 +45,19 @@ export function CarouselCard() {
                 }} 
                 asChild
             >
+=======
+            <Link href={{
+                pathname: '/(modals)/recommendations',
+                params: {
+                    title: data.title,
+                    imgUrl: data.imgUrl,
+                    desc: data.desc,
+                    blah: data.blah
+                },
+                }} 
+                asChild
+            >
+>>>>>>> Stashed changes
                 <TouchableOpacity>
                     <LinearGradient
                         colors={['#11b3a1', '#0e9c8f']}
@@ -65,6 +79,9 @@ export function CarouselCard() {
                     </LinearGradient>
                 </TouchableOpacity>
             </Link>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         </ThemedView>
     )

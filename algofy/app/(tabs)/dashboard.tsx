@@ -1,6 +1,7 @@
 import { StyleSheet, ScrollView, Image } from 'react-native';
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { ThemedView } from '@/components/themed-view';
 import { Box } from '@/components/ui/box';
 import { IconBoxList } from '@/components/ui/iconboxlist';
@@ -63,6 +64,15 @@ const chartConfig = {
     stroke: "#ffa726"
   }
 }
+=======
+import { ThemedView } from "@/components/themed-view";
+import { Box } from "@/components/ui/box";
+import { IconBoxList } from "@/components/ui/iconboxlist";
+import { CarouselComp } from "@/components/ui/carousel";
+import { ThemedText } from "@/components/themed-text";
+import { LinearGradient } from "expo-linear-gradient";
+
+>>>>>>> Stashed changes
 =======
 import { ThemedView } from "@/components/themed-view";
 import { Box } from "@/components/ui/box";
