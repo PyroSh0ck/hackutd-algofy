@@ -8,7 +8,7 @@ export function IconBox({ name, title } : { name : string, title : string }) {
             <CustomIcon 
                 name={name}
             />
-            <ThemedText>{title}</ThemedText>
+            <ThemedText style={{fontSize: 14, color: '#abebe3'}}>{title}</ThemedText>
         </ThemedView>   
     )
 }

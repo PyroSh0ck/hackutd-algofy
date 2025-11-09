@@ -9,6 +9,7 @@ import { ThemedView } from "../themed-view";
 import { ThemedText } from "../themed-text";
 import { StyleSheet } from "react-native";
 import { IconSymbol } from "./icon-symbol";
+import { CarouselCard } from "./carouselcard";
  
 const data = [...new Array(6).keys()];
 const width = Dimensions.get("window").width;
@@ -37,9 +38,9 @@ export function CarouselComp() {
             height={width / 2}
             data={data}
             onProgressChange={progress}
-            renderItem={({ index }) => (
+            renderItem={() => (
             <ThemedView style={styles.renderedItem}>
-                <ThemedText style={styles.renderedText}>{index}</ThemedText>
+                <CarouselCard />
             </ThemedView>
             )}
             
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderWidth: 1,
         justifyContent: "center",
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         borderRadius: 20,
     },
     renderedText: {

@@ -1,30 +1,38 @@
 import { Image } from 'expo-image';
-import { View, Text, StyleSheet } from "react-native"
+import { View, StyleSheet } from "react-native"
 import { ThemedText } from '../themed-text';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export function Box() {
 
     return (
-        <View style={styles.mainContainer}>
-            <Image 
-                source={require('@/assets/images/partial-react-logo.png')}
-                style={styles.logo}
-            />  
-            <View style={styles.leftSide}>
-                <View style={styles.topLeft}>
-                    <ThemedText style={styles.moneyText}>$5,500<ThemedText style={styles.centsText}>.50</ThemedText></ThemedText>
-                    <ThemedText style={styles.text}>Balance</ThemedText>
+        <LinearGradient
+            colors={['#3a9eba', '#0f4959']}
+            style={{borderRadius: 20, padding: 20, }}
+            start={{x:0, y:0}}
+            end={{x:1, y:0}}
+        >
+            <View style={styles.mainContainer}>
+                <Image 
+                    source={require('@/assets/images/logoWhite.png')}
+                    style={styles.logo}
+                />  
+                <View style={styles.leftSide}>
+                    <View style={styles.topLeft}>
+                        <ThemedText style={styles.moneyText}>$5,500<ThemedText style={styles.centsText}>.50</ThemedText></ThemedText>
+                        <ThemedText style={styles.text}>Balance</ThemedText>
+                    </View>
+                    <View style={styles.bottomLeft}>
+                        <ThemedText style={styles.asterisks}>*****</ThemedText>
+                        <ThemedText style={styles.text}>123-456-7890</ThemedText>
+                    </View>
                 </View>
-                <View style={styles.bottomLeft}>
-                    <ThemedText style={styles.asterisks}>*****</ThemedText>
-                    <ThemedText style={styles.text}>123-456-7890</ThemedText>
+                <View style={styles.rightSide}>
+                    <ThemedText style={styles.bankText}>Fauget Bank</ThemedText>
+                    <ThemedText style={styles.text}>Credit Card</ThemedText>
                 </View>
             </View>
-            <View style={styles.rightSide}>
-                <ThemedText style={styles.bankText}>Fauget Bank</ThemedText>
-                <ThemedText style={styles.text}>Credit Card</ThemedText>
-            </View>
-        </View>
+        </LinearGradient>
     )
 }
 
@@ -40,13 +48,12 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontWeight: '300',
     },
     moneyText: {
         color: 'white',
         fontSize: 35,
-        fontWeight: 'bold',
         paddingTop: 30,
+        fontFamily: 'Poppins_500Medium'
     },
     asterisks: {
         fontWeight: 'bold',
@@ -54,10 +61,10 @@ const styles = StyleSheet.create({
     },
     centsText: {
         fontSize: 20,
-        fontWeight: '300',
+        fontFamily: 'Poppins_500Medium',
     },
     bankText: {
-        fontWeight: 'bold',
+        fontFamily: 'Poppins_600SemiBold'
     },
     leftSide: {
         display: 'flex',
@@ -78,8 +85,8 @@ const styles = StyleSheet.create({
 
     },
     logo: {
-        height: '10%',
-        width: '10%',
+        height: 80,
+        width: 80,
         top: 0,
         right: 0,
         position: 'absolute',

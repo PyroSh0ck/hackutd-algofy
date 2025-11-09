@@ -6,24 +6,24 @@ export function IconBoxList() {
     return (
         <ThemedView style={styles.mainContainer}>
             <IconBox
-                name="dollarsign"
+                name="banknote.fill"
                 title="Transfer"
             />
             <IconBox
-                name="dollarsign"
+                name="trophy.fill"
                 title="Goals"
             />
             <IconBox
-                name="dollarsign"
-                title="Scan"
+                name="chart.line.uptrend.xyaxis.circle.fill"
+                title="Invest"
             />
             <IconBox
-                name="dollarsign"
-                title="Swap"
+                name="person.crop.circle.fill"
+                title="Assistant"
             />
             <IconBox
-                name="ellipsis"
-                title="More"
+                name="clipboard.fill"
+                title="Allocation"
             />
         </ThemedView>
     )
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '98%',
-        padding: 20
+        paddingTop: 20,
+        paddingHorizontal: 20,
     },
 })
