@@ -3,7 +3,7 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { SymbolWeight, SymbolViewProps } from 'expo-symbols';
 import { ComponentProps } from 'react';
-import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
+import { OpaqueColorValue, type StyleProp, type ViewStyle, View } from 'react-native';
 
 type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof MaterialIcons>['name']>;
 type IconSymbolName = keyof typeof MAPPING;
@@ -22,7 +22,7 @@ const MAPPING = {
   'chart.pie.fill': 'pie-chart',
   'slider.horizontal.3': 'shape-line',
   'cpu': 'computer',
-  
+  'banknote': 'attach-money',
 } as IconMapping;
 
 /**
@@ -39,8 +39,12 @@ export function IconSymbol({
   name: IconSymbolName;
   size?: number;
   color: string | OpaqueColorValue;
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
-  return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
+  return (
+    <View style={style}>
+      <MaterialIcons color={color} size={size} name={MAPPING[name]} />
+    </View>
+  );
 }

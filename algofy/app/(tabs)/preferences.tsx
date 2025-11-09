@@ -1,98 +1,47 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { ThemedView } from "@/components/themed-view"
+import { ThemedText } from "@/components/themed-text"
+import { TouchableOpacity, Image } from "react-native"
+import { Link } from "expo-router"
+import { IconSymbol } from "@/components/ui/icon-symbol"
+import { DropDown } from "@/components/ui/dropdown"
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-
-export default function PrefScreen() {
+export default function PrefPage() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ThemedView style={{display: 'flex', flexDirection: 'column', alignItems:'center', height: '100%'}}>
+      <ThemedView style={{display:'flex', flexDirection: 'row', justifyContent:'space-between', alignItems: 'center', paddingTop: 100}}>
+        <ThemedView style={{display:'flex', flexDirection: 'column', alignItems: 'center', marginRight: 30}}>
+          <ThemedText style={{fontFamily:'Poppins_600SemiBold', fontSize: 40, paddingTop: 30, color: '#abebe3'}}>Parth Modi</ThemedText>
+          <ThemedText style={{fontSize: 15, color: '#abebe3'}}>parthmodi.amodi@gmail.com</ThemedText>
+          <Link href='/'>
+            <TouchableOpacity>
+              <ThemedText style={{textDecorationLine: 'underline', color: '#abebe3'}}>edit profile</ThemedText>
+            </TouchableOpacity>
+          </Link>
+        </ThemedView>
+        <Image 
+          source={require('@/assets/images/icon.png')}
+          style={{width: 100, height: 100,}}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
+      <ThemedView style={{width: '90%', marginTop: 40}}>
+        <DropDown dropDownName="Linked Accounts">
+          <ThemedView style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', borderBottomWidth: 2, borderBottomColor: '#3b3b3b', marginTop: 10, width: '95%'}}>
+            <ThemedView style={{display: 'flex', flexDirection: 'row', alignItems:'center'}}>
+              <ThemedView style={{backgroundColor: '#3b3b3b', borderRadius: 10, margin: 20, padding: 8}}>
+                <IconSymbol name='banknote' color='#abebe3' size={35} style={{ borderRadius: 10 }} />
+              </ThemedView>
+              <ThemedView style={{display: 'flex', flexDirection: 'column', justifyContent:'space-evenly', alignItems: 'flex-start'}}>
+                <ThemedText style={{fontFamily: 'Poppins_600SemiBold', color: '#abebe3'}}>Fauget Bank</ThemedText>
+                <ThemedText style={{color: '#8a8a8a', fontSize: 13}}>Checking Account</ThemedText>
+              </ThemedView>
+            </ThemedView>
+            <ThemedText style={{color: 'green'}}>Linked</ThemedText>
+          </ThemedView>
+        </DropDown>
+        <ThemedView style={{width: '100%', borderWidth: 1, borderRadius: 20, paddingLeft: 15, paddingVertical: 10, borderColor: '#abebe3'}}>
+          <ThemedText style={{fontSize: 13, color: '#abebe3'}}>Allow Automatic Payments </ThemedText>
+        </ThemedView>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+    </ThemedView>
+  )
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
