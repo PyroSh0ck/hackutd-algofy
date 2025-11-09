@@ -63,13 +63,13 @@ const styles = StyleSheet.create({
     arrowleft: {
         position: 'absolute',
         left: 0,
-        top: '12%',
+        top: 85,
         marginLeft: 20,
     },
     arrowright: {
         position: 'absolute',
         right: 0,
-        top: '12%',
+        top: 85,
         marginRight: 20,
     },
     renderedItem: {
