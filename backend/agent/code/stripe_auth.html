@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stripe Financial Connections - Test Auth</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f6f9fc;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #32325d;
+            margin-top: 0;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #525f7f;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #635bff;
+        }
+        button {
+            background: #635bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #4f46e5;
+        }
+        button:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+        .info {
+            background: #f0f4ff;
+            border-left: 4px solid #635bff;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info h3 {
+            margin-top: 0;
+            color: #635bff;
+        }
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .error {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏦 Connect Test Bank Accounts</h1>
+
+        <div class="info">
+            <h3>How to use this page:</h3>
+            <ol>
+                <li>Paste your <strong>Publishable Key</strong> (starts with <code>pk_test_</code>)</li>
+                <li>Paste your <strong>Client Secret</strong> from the notebook (starts with <code>fcsess_client_secret_</code>)</li>
+                <li>Click "Connect Bank Accounts"</li>
+                <li>Use any credentials when prompted (it's all fake!)</li>
+            </ol>
+        </div>
+
+        <div class="input-group">
+            <label for="publishableKey">Stripe Publishable Key:</label>
+            <input
+                type="text"
+                id="publishableKey"
+                placeholder="pk_test_..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="clientSecret">Client Secret (from your notebook):</label>
+            <input
+                type="text"
+                id="clientSecret"
+                placeholder="fcsess_client_secret_..."
+                autocomplete="off"
+            >
+        </div>
+
+        <button id="connectButton" onclick="connectAccounts()">
+            Connect Bank Accounts
+        </button>
+
+        <div id="successMessage" class="success">
+            <h3>✅ Success!</h3>
+            <p>Your test bank accounts have been connected!</p>
+            <p>Go back to your notebook and run the "Check Connected Accounts" cell.</p>
+        </div>
+
+        <div id="errorMessage" class="error">
+            <h3>❌ Error</h3>
+            <p id="errorText"></p>
+        </div>
+
+        <div class="info" style="margin-top: 30px;">
+            <h3>💡 Test Credentials:</h3>
+            <p>When the auth flow opens, you can:</p>
+            <ul>
+                <li><strong>Bank:</strong> Select "Test Institution" or "Sandbox Bank"</li>
+                <li><strong>Login:</strong> Enter ANY username/password (it's a test!)</li>
+                <li><strong>Select accounts:</strong> Choose the test checking and savings accounts</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function connectAccounts() {
+            const publishableKey = document.getElementById('publishableKey').value.trim();
+            const clientSecret = document.getElementById('clientSecret').value.trim();
+            const button = document.getElementById('connectButton');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Validate inputs
+            if (!publishableKey || !clientSecret) {
+                errorText.textContent = 'Please enter both your publishable key and client secret.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!publishableKey.startsWith('pk_test_')) {
+                errorText.textContent = 'Publishable key must start with pk_test_ (use test mode keys!)';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!clientSecret.startsWith('fcsess_client_secret_')) {
+                errorText.textContent = 'Client secret must start with fcsess_client_secret_';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            try {
+                button.disabled = true;
+                button.textContent = 'Opening auth flow...';
+
+                // Initialize Stripe
+                const stripe = Stripe(publishableKey);
+
+                // Collect financial connections accounts
+                const result = await stripe.collectFinancialConnectionsAccounts({
+                    clientSecret: clientSecret,
+                });
+
+                button.disabled = false;
+                button.textContent = 'Connect Bank Accounts';
+
+                if (result.error) {
+                    // Handle error
+                    errorText.textContent = result.error.message;
+                    errorMessage.style.display = 'block';
+                } else {
+                    // Success!
+                    successMessage.style.display = 'block';
+                    console.log('Connected accounts:', result.financialConnectionsSession);
+                }
+            } catch (error) {
+                button.disabled = false;
+                button.textContent = 'Connect Bank Accounts';
+                errorText.textContent = error.message;
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
