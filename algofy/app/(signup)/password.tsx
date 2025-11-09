@@ -1,7 +1,7 @@
 import { ThemedView } from "@/components/themed-view";
 import { ThemedText } from "@/components/themed-text";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import { View } from "react-native";
 import { TextInput } from "react-native";
 import { useState } from "react";
@@ -14,7 +14,8 @@ export default function PasswordComp() {
     const [confirmPwd, setConfirmPwd] = useState('')
 
     return (
-        <ThemedView style={{display:'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%'}}>
+        <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+        <ThemedView style={{display:'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '100%'}}>
             <ThemedView style={{paddingTop: 100, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <ThemedText style={{textAlign:'center', fontFamily: 'Poppins_600SemiBold', fontSize: 30, paddingTop: 180 }}>Set Your Password</ThemedText>
                 <ThemedText style={{paddingVertical: 40, paddingBottom: 60}}>Great! Please create a secure password!</ThemedText>
@@ -70,6 +71,7 @@ export default function PasswordComp() {
                 </Link>
             </ThemedView>
         </ThemedView>
+        </ScrollView>
     )
 }
 
